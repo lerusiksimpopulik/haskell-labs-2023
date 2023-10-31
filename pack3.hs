@@ -7,3 +7,5 @@ dotsInCircle (x, y) r ((x1, y1):xs)
     | x - r <= x1 && x1 <= x + r && y - r <= y1 && y1 <= y + r = (x1, y1) : dotsInCircle (x, y) r xs
     | otherwise = dotsInCircle (x, y) r xs
 
+dotsInCircle' :: (Double, Double) -> Double -> [(Double, Double)] -> [(Double, Double)]
+dotsInCircle' (x,y) r arr = [(x1, y1) | (x1, y1) <- arr, x - r <= x1 && x1 <= x + r && y - r <= y1 && y1 <= y + r]
