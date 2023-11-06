@@ -42,6 +42,9 @@ elem' _ [] = False
 elem' y (x:xs) | y == x = True
                | otherwise = elem' y xs
 
+elem'' :: (Eq a) => a -> [a] -> Bool
+elem'' x xs = foldl (\acc y -> if y == x then True else acc) False xs
+
 -- У функции elem тип (Eq a) => a –> [a] –> Bool, потому что она при-
 -- меняет оператор == к элементам списка, чтобы проверить, есть ли
 -- в этом списке значение, которое мы ищем.
