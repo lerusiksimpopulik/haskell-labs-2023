@@ -9,3 +9,18 @@ dotsInCircle (x, y) r ((x1, y1):xs)
 
 dotsInCircle' :: (Double, Double) -> Double -> [(Double, Double)] -> [(Double, Double)]
 dotsInCircle' (x,y) r arr = [(x1, y1) | (x1, y1) <- arr, x - r <= x1 && x1 <= x + r && y - r <= y1 && y1 <= y + r]
+
+setAnd :: [Int] -> [Int] -> [Int]
+setAnd xs ys = filter (\x -> x `elem'` ys) xs
+
+setAnd :: [Int] -> [Int] -> [Int]
+setAnd xs ys = filter (\x -> x `elem'` ys) xs
+
+-- kolCifr 0 = 1
+kolCifr x
+    | x < 10 = 1
+    | otherwise = 1 + kolCifr (x `div` 10)
+
+sumCifr 0 = 0
+-- sumCifr 1 = 1
+sumCifr x = (x `mod` 10) + sumCifr (x `div` 10)
