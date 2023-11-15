@@ -1,0 +1,27 @@
+-- Task 1
+
+quadraticSolver :: Double -> Double -> Double -> Maybe (Double, Double)
+quadraticSolver a b c
+    |    d < 0 = Nothing
+    |    otherwise = Just ((-b + sqrt d) / (2 * a), (-b - sqrt d) / (2 * a))
+    where d = b * b - 4 * a * c
+
+-- Task 2
+
+maybeHead :: [a] -> Maybe a
+maybeHead [] = Nothing
+maybeHead (x:_) = Just x
+
+maybeTail :: [a] -> Maybe [a]
+maybeTail [] = Nothing
+maybeTail (_:xs) = Just xs
+
+maybeInit :: [a] -> Maybe [a]
+maybeInit [] = Nothing
+maybeInit xs = Just (init xs)
+
+maybeFind :: (a -> Bool) -> [a] -> Maybe a
+maybeFind _ [] = Nothing
+maybeFind predicate (x:xs)
+    |   predicate x = Just x
+    |   otherwise   = maybeFind predicate xs
