@@ -11,10 +11,10 @@ dotsInCircle' :: (Double, Double) -> Double -> [(Double, Double)] -> [(Double, D
 dotsInCircle' (x,y) r arr = [(x1, y1) | (x1, y1) <- arr, x - r <= x1 && x1 <= x + r && y - r <= y1 && y1 <= y + r]
 
 setAnd :: [Int] -> [Int] -> [Int]
-setAnd xs ys = filter (\x -> x `elem'` ys) xs
+setAnd xs ys = filter (\x -> x `elem` ys) xs
 
 setAnd :: [Int] -> [Int] -> [Int]
-setAnd xs ys = filter (\x -> x `elem'` ys) xs
+setAnd xs ys = filter (\x -> x `elem` ys) xs
 
 -- kolCifr 0 = 1
 kolCifr x
@@ -24,3 +24,24 @@ kolCifr x
 sumCifr 0 = 0
 -- sumCifr 1 = 1
 sumCifr x = (x `mod` 10) + sumCifr (x `div` 10)
+
+isPowerOfTwo :: Int -> Bool
+isPowerOfTwo 1 = True
+isPowerOfTwo n
+  | n > 1 && n `mod` 2 == 0 = isPowerOfTwo (n `div` 2)
+  | otherwise = False
+
+collatz :: Int -> [Int]
+collatz 1 = [1]
+collatz n
+  | even n = n : collatz (n `div` 2)
+  | otherwise = n : collatz (3 * n + 1)
+
+collatzSteps :: Int -> Int
+collatzSteps n = length (collatz n)
+
+collatzMaxValue :: Int -> Int
+collatzMaxValue n = maximum (collatz n)
+
+collatzFull :: Int -> (Int, Int)
+collatzFull n = (collatzSteps n, collatzMaxValue n)
