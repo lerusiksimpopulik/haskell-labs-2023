@@ -34,3 +34,17 @@ strToInt x
 read' :: String -> Int
 read' [] = error "don't do this"
 read' (x:xs) = foldl (\acc x -> acc*10 + (strToInt x)) (strToInt x) xs
+
+maybeBracket :: String -> Bool 
+maybeBracket xs =  case xs of [] -> error "empty" 
+                              xs -> checkBracket 0 xs 
+ 
+proverka :: Int -> Bool
+proverka a | a >= 0 = True
+           | otherwise = False
+
+checkBracket :: Int -> String -> Bool 
+checkBracket acc xs| acc < 0 = False
+                   | xs==[] =  proverka acc
+                   | head xs == '(' = checkBracket (acc +1) (tail xs) 
+                   | head xs == ')' = checkBracket (acc -1) (tail xs)
