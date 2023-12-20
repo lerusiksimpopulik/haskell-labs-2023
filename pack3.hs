@@ -45,3 +45,28 @@ collatzMaxValue n = maximum (collatz n)
 
 collatzFull :: Int -> (Int, Int)
 collatzFull n = (collatzSteps n, collatzMaxValue n)
+
+sequenceByPred :: (a -> a) -> a -> [a]
+sequenceByPred f x = x : sequenceByPred f (f x)
+
+res = take 10 $ sequenceByPred (\x -> x * 3) 10
+
+fibonacci :: [Int]
+fibonacci = 0 : 1 : next fibonacci (tail fibonacci)
+    where next (x:xs) (y:ys) = x + y : next xs ys
+
+sequenceByTwoPred :: (a -> a -> a) -> a -> a -> [a]
+sequenceByTwoPred f x y = x : y : next
+    where next = sequenceByTwoPred f y (f x y)
+
+res' = take 10 $ sequenceByTwoPred (\x y -> x * 3 + y) 10 20
+
+log2Ceil :: Int -> Int
+log2Ceil n = ceiling (logBase 2 (fromIntegral n))
+
+quicksort :: (Ord a) => [a] -> [a]
+quicksort [] = []
+quicksort (x:xs) = quicksort smaller ++ [x] ++ quicksort larger
+      where
+            smaller = filter (<= x) xs
+            larger = filter (> x) xs
