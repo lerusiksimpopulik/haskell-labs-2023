@@ -1,3 +1,4 @@
+
 data MyMaybe a = MyNothing | MyJust a deriving (Show)
 
 instance Functor MyMaybe where
@@ -17,13 +18,20 @@ instance Monad MyMaybe where
 
 data List a = Empty | Cons a (List a)
 
-instance Monad List where
-    return x = Cons x Empty
+-- instance Monad List where
+--     return x = Cons x Empty
+--     Empty >>= _ = Empty
+--     (Cons x xs) >>= f = concatLists (f x) (xs >>= f)
+--       where
+--         concatLists Empty ys = ys
+--         concatLists (Cons x xs) ys = Cons x (concatLists xs ys)
+
+instance Monad List where 
     Empty >>= _ = Empty
-    (Cons x xs) >>= f = concatLists (f x) (xs >>= f)
-      where
-        concatLists Empty ys = ys
-        concatLists (Cons x xs) ys = Cons x (concatLists xs ys)
+--    Cons x xs >>= f = Cons (f x) (xs >>= f)
+    Cons x xs >>= f = makeList (f x) (xs >>= f)
+                    where makeList Empty ys = ys
+                          makeList (Cons x xs) ys = Cons x (makeList ys xs)
 
 instance Functor List where
     fmap _ Empty = Empty
