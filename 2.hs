@@ -92,10 +92,10 @@ rollDice :: State RandState Integer
 rollDice = do
     s <- get
     case s of
-        [] -> error "THE END"
+        [] -> put [1] >> return 1
         (x:xs) -> do
-            put (xs++[x])
-            return (head xs)
+            put (xs)
+            return x
 
 game :: State RandState String
 game = do
@@ -106,3 +106,13 @@ game = do
 runGame :: String
 runGame = evalState game startSeed
     where startSeed = [4, 3, 5, 2, 1, 6]
+
+-- * a harder task. rewrite queryGreekPro, but without the do-notation, only using the (>>=) operator and its friends
+-- in other words, desugarize your notation
+queryGreekProPlus :: GreekData -> String -> Maybe Double
+queryGreekProPlus d s=  
+    lookup s d >>= \xs -> 
+        tailMay xs >>= \ts -> 
+            myHeadMay xs >>= \headelem -> 
+                maximumMay ts >>= \maxelem -> 
+                    Just (fromIntegral maxelem / fromIntegral headelem)
